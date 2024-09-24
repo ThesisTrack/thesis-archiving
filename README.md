@@ -16,8 +16,8 @@
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/KuroXI/supercore-library-management
-cd ./supercore-library-management
+git clone https://github.com/ARobeeHerrera/getset-library-management-system
+cd ./getset-library-management-system
 ```
 
 ### 3. Install dependencies
