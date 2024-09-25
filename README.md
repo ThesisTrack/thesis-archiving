@@ -18,6 +18,7 @@
 ```bash
 git clone https://github.com/ARobeeHerrera/getset-library-management-system
 cd ./getset-library-management-system
+code .
 ```
 
 ### 3. Install dependencies
