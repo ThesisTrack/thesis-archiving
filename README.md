@@ -1,4 +1,6 @@
-# GettersSetters
+#GettersSetters
+
+## Getting Started
 
 ## Setup for development
 
