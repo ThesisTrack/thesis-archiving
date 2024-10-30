@@ -1,12 +1,13 @@
-import GoogleProvider from "next-auth/providers/google"
-import { SupabaseAdapter } from "@auth/supabase-adapter"
+import GoogleProvider from "next-auth/providers/google";
+import { SupabaseAdapter } from "@auth/supabase-adapter";
 import jwt from "jsonwebtoken";
+import { getServerSession } from "next-auth";
 
 export const authOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.NEXT_PUBLIC_GOOGLE_CLIENTID,
-      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET
+      clientSecret: process.env.NEXT_PUBLIC_GOOGLE_SECRET,
     }),
   ],
   adapter: SupabaseAdapter({
@@ -14,5 +15,14 @@ export const authOptions = {
     secret: process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY,
   }),
   callbacks: {
+    session: ({ session, user }) => ({
+      ...session,
+      user: {
+        ...session.user,
+        id: user.id,
+      },
+    }),
   },
 };
+
+export const getServerAuthSession = () => getServerSession(authOptions);
