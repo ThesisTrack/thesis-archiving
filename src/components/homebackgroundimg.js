@@ -1,4 +1,3 @@
-
 export  const backgroundImage  = {
     backgroundImage: 'url(new_era_university_qc_main_cover.png)',
     backgroundSize: 'cover',

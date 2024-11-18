@@ -1,10 +1,8 @@
-import { Button } from "@/components/ui/button";
-import { signIn, signOut } from "next-auth/react";
-import { FcGoogle } from "react-icons/fc";
+'use client';
+
 import { backgroundImage } from "@/components/homebackgroundimg";
-import { getServerSession } from "next-auth";
 import { LogInForm } from "@/components/login/logInForm";
-import { redirect } from "next/navigation";
+
 
 export default function Home() {
   return (
