@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { getServerAuthSession } from "@/server/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
