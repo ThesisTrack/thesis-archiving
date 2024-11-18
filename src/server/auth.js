@@ -23,6 +23,6 @@ export const authOptions = {
       },
     }),
   },
-};
+};  
 
 export const getServerAuthSession = () => getServerSession(authOptions);
