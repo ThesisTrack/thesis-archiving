@@ -1,5 +1,5 @@
 'use client';
-import UploadPdf from '@/components/uploadpdf/uploadPdf';
+import  UploadPdf  from '@/components/uploadpdf/uploadPdf';
 
 
 export default function UploadPage() {
