@@ -12,6 +12,7 @@ const supabase = createClient(
 export default function UploadPdf() {
   const [userId, setUserId] = useState('');
   const [file, setFile] = useState('');
+  const [messageSuccess, setMessageSuccess] = useState ('')
   const [errorMessage, setErrorMessage] = useState('');
 
   const selectingFile = (e) => {
@@ -68,7 +69,7 @@ export default function UploadPdf() {
       .upload(userId + "/" + uuidv4(), file)
 
       if (data) {
-        console.log("File uploaded successfully:", data);
+        setMessageSuccess("File uploaded successfully:", data);
         getUploadFile();
       } else {
         setErrorMessage(`Error uploading file: ${error.message}`);
@@ -97,6 +98,7 @@ export default function UploadPdf() {
       </button>
 
       {errorMessage && <p className="text-red-500 mt-4">{errorMessage}</p>}
+      {messageSuccess && <p className="text-green-500 mt-4">{messageSuccess}</p>}
     </div>
   );
 }
