@@ -3,6 +3,7 @@ import { getServerAuthSession } from "@/server/auth";
 import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import react from "react";
+import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
   const session = getServerAuthSession();
@@ -19,7 +20,7 @@ const Dashboard = () => {
         <div className="container mx-auto flex justify-between items-center px-4">
           <div className="flex items-center space-x-4">
             <img
-              src="public/neulogo.png" 
+              src="neulogo.png" 
               alt="New Era University"
               className="h-10"
             />
@@ -53,28 +54,7 @@ const Dashboard = () => {
 
       <div className="container mx-auto flex mt-6 px-4">
         <aside className="w-1/4 bg-gray-200 rounded-lg p-4">
-          <h2 className="text-lg font-bold mb-4">Thesis Archive</h2>
-          <ul className="space-y-2">
-            {[
-              "College of Informatics and Computing Studies",
-              "College of Engineering and Architecture",
-              "College of Business Administration",
-              "College of Respiratory Therapy",
-              "College of Medical Technology",
-              "College of Physical Therapy",
-              "College of Arts and Science",
-              "College of Accountancy",
-            ].map((college, index) => (
-              <li key={index}>
-                <a
-                  href="#"
-                  className="block p-2 rounded hover:bg-gray-300"
-                >
-                  {college}
-                </a>
-              </li>
-            ))}
-          </ul>
+
         </aside>
 
         <main className="w-3/4 bg-white rounded-lg p-6 ml-6 shadow">
@@ -90,7 +70,7 @@ const Dashboard = () => {
             / Thesis Archive
           </nav>
           <img
-            src="public/campus.png"
+            src="/campus.png"
             alt="New Era University Campus"
             className="rounded-lg mb-6"
           />
@@ -101,9 +81,9 @@ const Dashboard = () => {
           </p>
           <p className="text-gray-700 mt-4">
             The online thesis archive is meant to serve as a record of the
-            undergraduate honors theses completed by Kent State University
+            undergraduate honors theses completed by New Era University
             students. Anyone interested in reading one of the theses listed in
-            the archive may do so by visiting the Honors College library.
+            the archive may do so by visiting the home page.
           </p>
         </main>
       </div>
@@ -116,7 +96,7 @@ const Dashboard = () => {
         </div>
       </footer>
     </div>
-  )
+  );
  
 };
 
