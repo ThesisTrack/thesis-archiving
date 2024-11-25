@@ -3,8 +3,21 @@
 import { Button } from "@/components/ui/button";
 import { signIn, signOut } from "next-auth/react";
 import { FcGoogle } from "react-icons/fc";
+import { getServerAuthSession } from "@/server/auth";
+import { redirect } from "next/navigation";
 
 export const LogInForm = () => {
+  const session = getServerAuthSession();
+
+  console.log(session)
+
+  if (session) {
+    redirect('/dashboard')
+  }
+  else if (!session){
+    redirect('/login')
+  }
+
     return (
         <div className="w-full max-w-lg p-20 bg-green-300 rounded-lg shadow-lg flex flex-col items-center">
           <h1 className="text-3xl font-bold mb-4">NEU-Library</h1>
