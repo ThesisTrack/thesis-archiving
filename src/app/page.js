@@ -74,9 +74,9 @@ export default function Home() {
           </p>
           <p className="text-gray-700 mt-4">
             The online thesis archive is meant to serve as a record of the
-            undergraduate honors theses completed by Kent State University
+            undergraduate honors theses completed by New Era University
             students. Anyone interested in reading one of the theses listed in
-            the archive may do so by visiting the Honors College library.
+            the archive may do so by exploring the website.
           </p>
         </main>
       </div>
