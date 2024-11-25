@@ -13,7 +13,7 @@ export const LogInForm = () => {
           <h1 className="text-3xl font-bold mb-4">NEU-Library</h1>
           <Button
             className="flex items-center bg-blue-300 border border-black-300 shadow-2xl px-10 py-2 rounded-full hover:bg-black-500"
-            onClick={() => signIn("google", {callbackUrl: "/"})}
+            onClick={() => signIn("google", {callbackUrl: "/dashboard"})}
           >
             <FcGoogle className="mr-2" size={24} />
             Sign In with Google
