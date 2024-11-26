@@ -16,8 +16,8 @@
 ### 2. Clone Repository
 
 ```bash
-git clone https://github.com/ARobeeHerrera/getset-library-management-system
-cd ./getset-library-management-system
+git clone https://github.com/ThesisTrack/thesis-archiving.git
+cd ThesisTrack/thesis-archiving
 code .
 ```
 
