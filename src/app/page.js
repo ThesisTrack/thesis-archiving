@@ -7,7 +7,6 @@ import { NavigationBar } from "@/components/Common/NavigationBar";
 import { Footer } from "@/components/Common/Footer";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/router";
 
 export default function Home() {
   
@@ -20,32 +19,13 @@ export default function Home() {
 
   return (
     <div className="min-h-screen bg-gray-100">
+      
      <NavigationBar/>
 
       <div className="container mx-auto flex mt-6 px-4">
+
         <aside className="w-1/4 bg-gray-200 rounded-lg p-4">
-          <h2 className="text-lg font-bold mb-4">Thesis Archive</h2>
-          <ul className="space-y-2">
-            {[
-              "College of Informatics and Computing Studies",
-              "College of Engineering and Architecture",
-              "College of Business Administration",
-              "College of Respiratory Therapy",
-              "College of Medical Technology",
-              "College of Physical Therapy",
-              "College of Arts and Science",
-              "College of Accountancy",              
-            ].map((college, index) => (
-              <li key={index}>
-                <a
-                  href="#"
-                  className="block p-2 rounded hover:bg-gray-300"
-                >
-                  {college}
-                </a>
-              </li>
-            ))}
-          </ul>
+          
         </aside>
 
         <main className="w-3/4 bg-white rounded-lg p-6 ml-6 shadow">
