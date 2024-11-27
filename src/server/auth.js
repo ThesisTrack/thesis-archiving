@@ -22,6 +22,12 @@ export const authOptions = {
         id: user.id,
       },
     }),
+    async signIn ({ account, profile }){
+      if (account.provider === "google") {
+        return profile.email.endsWith("@neu.edu.ph")
+      }
+      return true
+    }
   },
 };  
 
