@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 'use client';
 import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
@@ -8,55 +9,52 @@ export const NavigationBar = () => {
   const session = useSession();
 
 
-    return (
-        <header className="bg-blue-900 text-white py-4">
-        <div className="container mx-auto flex justify-between items-center px-4">
-          <div className="flex items-center space-x-4">
-            <Image
-              src="/neulogo.png"
-              alt="New Era University"
-              width={50} 
-              height={100}
-              className="h-10"
-            />
-            <h1 className="text-xl font-bold uppercase">
-              New Era University | Thesis Archive
-            </h1>
-          </div>
-          <div className="flex items-center space-x-4">
-          {session ? (
-          <button 
-          className="px-4 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-400"
-          onClick={() => signOut("google",{callbackUrl: '/'})}
-          >
-            Sign Out
-          </button>
-            ) :(
-             <a href="/login">
-                <button className="px-4 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-400"
-                >
-                    Sign In
-                </button>
-            </a>
-            )}
-            <div className="bg-white text-blue-900 rounded-full p-2">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                strokeWidth={1.5}
-                stroke="currentColor"
-                className="w-6 h-6"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-3a2.25 2.25 0 00-2.25 2.25V9m7.5 0v10.5a2.25 2.25 0 01-2.25 2.25h-3a2.25 2.25 0 01-2.25-2.25V9m7.5 0H6.75m9 0H6.75m9 0h-9"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </header>
-    );
+  return ( 
+    <div className="bg-white flex flex-col items-center w-full">
+  <header className="bg-[#003976] w-full relative">
+    <div className="bg-[#fcd116] h-3 w-full absolute bottom-0" />
+    <div className="flex justify-between px-8">
+     <div className=" flex items-center px-8 py-4">
+      <img
+        src="/neulogo.png"
+        alt="Neu logo"
+        className="w-[100px] h-[100px] object-contain mr-10"
+      />
+      <div className="">
+      <h1 className="text-white text-4xl font-bold">
+        NEW ERA UNIVERSITY{" "}
+        <span className="font-normal">| THESIS ARCHIVE</span>
+      </h1>
+      <nav className=" flex justify-start space-x-8 text-[#93a4ff] text-lg py-2">
+      <a href="#about" className="hover:underline">
+        About
+      </a>
+      <a href="#browse" className="hover:underline">
+        Browse
+      </a>
+      <a href="#faculty" className="hover:underline">
+        Faculty & Staff
+      </a>
+      <a href="#forms" className="hover:underline">
+        Student Forms
+      </a>
+    </nav>  
+      </div>
+    </div>
+    <div className="flex justify-between items-center px-8 py-4">
+    <button 
+      className="mr-10 right-1 px-4 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-400"
+      onClick={() => signOut("google",{callbackUrl: '/'})}
+      >
+        Sign Out
+      </button>
+      <img
+        src="/icon.png"
+        alt="Profile user"
+        className="w-[50px] h-[50px] rounded-full "/>  
+    </div>
+    </div>
+  </header>
+  </div>
+);
 };
