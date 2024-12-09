@@ -1,31 +1,28 @@
 "use client";
 
-// import { getServerAuthSession } from "@/server/auth";
-// import { getServerSession } from "next-auth";
 import { redirect } from "next/navigation";
 import { NavigationBar } from "@/components/Common/NavigationBar";
 import { Footer } from "@/components/Common/Footer";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Home() {
-  
-  const {data: session} = useSession();
+export default function App() {
+  const { data: session } = useSession();
 
-// If the user is not login 
   if (!session) {
-    redirect('/login');
-}
+    redirect("/login");
+  }
 
   return (
     <div className="min-h-screen bg-gray-100">
-      
-     <NavigationBar/>
+      <NavigationBar />
 
       <div className="container mx-auto flex mt-6 px-4">
-
         <aside className="w-1/4 bg-gray-200 rounded-lg p-4">
-          
+          <Link href="/uploadpdfpage" className="hover:underline">
+            Upload PDF
+          </Link>
         </aside>
 
         <main className="w-3/4 bg-white rounded-lg p-6 ml-6 shadow">
@@ -43,14 +40,15 @@ export default function Home() {
           <Image
             src="/campus.png"
             alt="New Era University Campus"
-            width={10000}
-            height={100}
+            width={1200}
+            height={600}
+            priority
             className="rounded-lg mb-6"
           />
           <p className="text-gray-700">
             The Thesis Archive provides information about Senior Honors
-            Theses/Projects that have been completed by Honors students over
-            the years.
+            Theses/Projects that have been completed by Honors students over the
+            years.
           </p>
           <p className="text-gray-700 mt-4">
             The online thesis archive is meant to serve as a record of the
@@ -61,8 +59,7 @@ export default function Home() {
         </main>
       </div>
 
-     <Footer/>
+      <Footer />
     </div>
-  )
- 
-};
+  );
+}
