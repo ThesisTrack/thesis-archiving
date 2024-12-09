@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 import { backgroundImage } from "@/components/login/loginbackgroundimg";
 import { LogInForm } from "@/components/login/logInForm";
@@ -12,7 +12,7 @@ export default function Login() {
 
   useEffect(() => {
     if (session) {
-      router.push('/');
+      router.push("/");
     }
   }, [session, router]);
 

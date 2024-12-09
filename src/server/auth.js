@@ -23,19 +23,19 @@ export const authOptions = {
   callbacks: {
     async session({ session, user }) {
       const supabase = getSupabaseClient();
-      let role = "No Role Found"; 
+      let role = "No Role Found";
 
       try {
         const { data: userWithRole, error } = await supabase
-          .from('next_auth.users')
-          .select('role')
-          .eq('email', session.user.email)
+          .from("next_auth.users")
+          .select("role")
+          .eq("email", session.user.email)
           .single();
 
         if (error) {
           console.error("Error fetching role from Supabase:", error);
         } else {
-          role = userWithRole?.role || role; 
+          role = userWithRole?.role || role;
         }
       } catch (err) {
         console.error("Unexpected error in session callback:", err);

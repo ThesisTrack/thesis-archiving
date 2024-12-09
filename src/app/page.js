@@ -5,13 +5,13 @@ import { NavigationBar } from "@/components/Common/NavigationBar";
 import { Footer } from "@/components/Common/Footer";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import Link from 'next/link';
+import Link from "next/link";
 
 export default function App() {
   const { data: session } = useSession();
 
   if (!session) {
-    redirect('/login');
+    redirect("/login");
   }
 
   return (
@@ -20,7 +20,7 @@ export default function App() {
 
       <div className="container mx-auto flex mt-6 px-4">
         <aside className="w-1/4 bg-gray-200 rounded-lg p-4">
-          <Link href='/uploadpdfpage' className="hover:underline">
+          <Link href="/uploadpdfpage" className="hover:underline">
             Upload PDF
           </Link>
         </aside>
@@ -47,8 +47,8 @@ export default function App() {
           />
           <p className="text-gray-700">
             The Thesis Archive provides information about Senior Honors
-            Theses/Projects that have been completed by Honors students over
-            the years.
+            Theses/Projects that have been completed by Honors students over the
+            years.
           </p>
           <p className="text-gray-700 mt-4">
             The online thesis archive is meant to serve as a record of the
