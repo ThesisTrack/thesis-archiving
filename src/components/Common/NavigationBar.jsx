@@ -1,14 +1,38 @@
 'use client';
 
+import supabase from '@/app/utils/supabase/client';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
 
 export const NavigationBar = () => {
-  const { data: session, status } = useSession(); // Fetch session and status
-  const role = session?.user?.role || 'No Role';
+  const { data: session, status } = useSession(); 
+  const [ userInfo, setUserInfo ] = useState([]);
+
+  useEffect(() => {
+    getName();
+  }, [])
+
+  async function getName() {
+    try {
+      const { data, error } = await supabase
+      .schema("next_auth")
+      .from("users")
+      .select("*")
+      .limit(10)
+      if(error) throw error;
+      if(data != null) {
+        setUserInfo(data);
+      } 
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  
+  console.log(userInfo);
 
   if (status === 'loading') {
-    return <p className="text-gray-500">Loading...</p>; // Loading state
+    return <p className="text-gray-500">Loading...</p>;
   }
 
   return (
@@ -50,7 +74,6 @@ export const NavigationBar = () => {
             </div>
           </div>
           <div className="flex items-center space-x-4">
-            <p className="text-white" aria-label="User Role">{role}</p>
             {session ? (
               <button
                 className="px-4 py-2 bg-yellow-500 text-blue-900 rounded hover:bg-yellow-400"

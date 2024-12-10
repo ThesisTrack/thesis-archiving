@@ -21,35 +21,6 @@ export const authOptions = {
     secret: process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY,
   }),
   callbacks: {
-    async session({ session, user }) {
-      const supabase = getSupabaseClient();
-      let role = "No Role Found";
-
-      try {
-        const { data: userWithRole, error } = await supabase
-          .from("next_auth.users")
-          .select("role")
-          .eq("email", session.user.email)
-          .single();
-
-        if (error) {
-          console.error("Error fetching role from Supabase:", error);
-        } else {
-          role = userWithRole?.role || role;
-        }
-      } catch (err) {
-        console.error("Unexpected error in session callback:", err);
-      }
-
-      return {
-        ...session,
-        user: {
-          ...session.user,
-          id: user.id,
-          role,
-        },
-      };
-    },
     async signIn({ account, profile }) {
       if (account.provider === "google") {
         return profile.email.endsWith("@neu.edu.ph");
