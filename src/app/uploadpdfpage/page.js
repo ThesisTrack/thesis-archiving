@@ -11,8 +11,9 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
 
+
 export default function UploadPage() {
-  const { data: session, status } = useSession(); // Fetch session from next-auth
+  const { data: session, status } = useSession();
   const [userId, setUserId] = useState("");
   const [file, setFile] = useState("");
   const [messageSuccess, setMessageSuccess] = useState("");
@@ -25,21 +26,18 @@ export default function UploadPage() {
 
   const getUserAndFiles = useCallback(async () => {
     if (!session || !session.user) {
-      console.error("No session or user available:", session); // Log the session
+      console.error("No session or user available:", session);
       setErrorMessage("User not authenticated");
       return;
     }
 
     try {
-      setUserId(session.user.id);
+      setUserId(session.user.email);
       setErrorMessage("");
 
-      console.log("Session loaded:", session); // Log session to check its structure
-
-      // Fetch files from Supabase
       const { data: filesData, error: filesError } = await supabase.storage
-        .from("samples")
-        .list(session.user.id + "/", {
+        .from("upload")
+        .list(session.user.email + "/", {
           limit: 100,
           offset: 0,
           sortBy: { column: "name", order: "asc" },
@@ -52,8 +50,8 @@ export default function UploadPage() {
         const files = await Promise.all(
           filesData.map(async (file) => {
             const { data: fileUrl } = supabase.storage
-              .from("samples")
-              .getPublicUrl(session.user.id + "/" + file.name);
+              .from("upload")
+              .getPublicUrl(session.user.email + "/" + file.name);
             return { name: file.name, url: fileUrl.publicUrl };
           })
         );
@@ -77,19 +75,20 @@ export default function UploadPage() {
     }
 
     if (!userId) {
-      setErrorMessage("User ID is not available at the moment.");
+      setErrorMessage("Email is not available at the moment.");
       return;
     }
 
     try {
+      const fileName = `${file.name}`;
       const { data, error } = await supabase.storage
-        .from("samples")
-        .upload(userId + "/" + uuidv4(), file);
+        .from("upload")
+        .upload(`${userId}/${fileName}`, file);
 
       if (data) {
         setMessageSuccess("File uploaded successfully.");
         setErrorMessage("");
-        getUserAndFiles(); // Re-fetch user and files after successful upload
+        getUserAndFiles();
       } else {
         setErrorMessage(`Error uploading file: ${error.message}`);
         console.error(error);
@@ -103,8 +102,8 @@ export default function UploadPage() {
   const handleFileDelete = async (fileName) => {
     try {
       const { error } = await supabase.storage
-        .from("samples")
-        .remove([userId + "/" + fileName]); // Delete the file from Supabase
+        .from("upload")
+        .remove([userId + "/" + fileName]);
 
       if (error) {
         setErrorMessage(`Error deleting file: ${error.message}`);
@@ -112,7 +111,7 @@ export default function UploadPage() {
       } else {
         setMessageSuccess("File deleted successfully.");
         setErrorMessage("");
-        getUserAndFiles(); // Re-fetch files after deletion
+        getUserAndFiles();
       }
     } catch (error) {
       setErrorMessage("An error occurred during the file deletion process.");
@@ -121,7 +120,7 @@ export default function UploadPage() {
   };
 
   useEffect(() => {
-    getUserAndFiles(); // Fetch user and files when the component mounts
+    getUserAndFiles();
   }, [getUserAndFiles]);
 
   if (status === "loading") {
@@ -133,15 +132,73 @@ export default function UploadPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <UploadPdf
-        selectingFile={selectingFile}
-        handleFileUpload={handleFileUpload}
-        errorMessage={errorMessage}
-        messageSuccess={messageSuccess}
-        fileList={fileList}
-        handleFileDelete={handleFileDelete} // Pass the delete function down as a prop
-      />
+    <div className="min-h-screen flex flex-col items-center justify-center bg-blue-300 space-y-8">
+      <div className="flex flex-col items-center bg-white p-8 rounded-lg shadow-md w-full max-w-lg">
+        <UploadPdf
+          selectingFile={selectingFile}
+          handleFileUpload={handleFileUpload}
+          errorMessage={errorMessage}
+          messageSuccess={messageSuccess}
+          fileList={fileList}
+          handleFileDelete={handleFileDelete}
+        />
+      </div>
+
+      <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
+        <table className="table-auto w-full border-collapse border border-gray-300 text-center">
+          <thead>
+            <tr className="bg-gray-200">
+              <th className="border border-gray-300 px-4 py-2">Uploader</th>
+              <th className="border border-gray-300 px-4 py-2">File Name</th>
+              <th className="border border-gray-300 px-4 py-2">Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            {fileList.length === 0 ? (
+              <tr>
+                <td colSpan="3" className="text-center py-4">
+                  No files uploaded yet.
+                </td>
+              </tr>
+            ) : (
+              fileList.map((file) => (
+                <tr key={file.name}>
+                  <td className="border border-gray-300 px-4 py-2">{userId}</td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <a
+                      href={file.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-500 underline"
+                    >
+                      {file.name}
+                    </a>
+                  </td>
+                  <td className="border border-gray-300 px-4 py-2">
+                    <div className="flex justify-center space-x-4">
+                      <a
+                        href={file.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
+                      >
+                        View
+                      </a>
+                      <button
+                        onClick={() => handleFileDelete(file.name)}
+                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
+                      >
+                        Delete
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              ))
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }
+

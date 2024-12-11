@@ -28,26 +28,13 @@ export default function UploadPdf({
       )}
 
       <div className="mt-6">
-        <h3 className="text-xl mb-2">Uploaded PDFs</h3>
         {fileList.length > 0 ? (
           <ul className="list-disc list-inside">
             {fileList.map((file, index) => (
-              <li key={index} className="flex items-center justify-between">
-                <a
-                  href={file.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-blue-500 underline"
-                >
-                  {file.name}
-                </a>
-                <button
-                  onClick={() => handleFileDelete(file.name)} // Call the delete function
-                  className="ml-4 text-red-500"
-                >
-                  Delete
-                </button>
-              </li>
+              <li
+                key={index}
+                className="flex items-center justify-between"
+              ></li>
             ))}
           </ul>
         ) : (
