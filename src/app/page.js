@@ -7,12 +7,12 @@ import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
 import UploadPage from "./uploadpdfpage/page";
-import BrowseTheses from "./browsetheses/page"; 
+import BrowseTheses from "./browsetheses/page";
 
 export default function App() {
   const { data: session } = useSession();
-  const [showUploadPage, setShowUploadPage] = useState(false);
-  const [showBrowsePage, setShowBrowsePage] = useState(false); 
+  const [showUploadPage, setShowUploadPage] = useState(false); 
+  const [showBrowsePage, setShowBrowsePage] = useState(false); // Add state for showBrowsePage
 
   if (!session) {
     redirect("/login");
@@ -24,23 +24,30 @@ export default function App() {
       <div className="container mx-auto flex flex-1 mt-6 px-4">
         <aside className="w-1/4 bg-gray-200 rounded-lg p-4">
           <button
-            className="hover:underline text-white-500 mb-4 w-full text-center p-2 bg-blue-500 rounded"
-            onClick={() => setShowUploadPage(!showUploadPage)}
+            className="hover:underline text-white-500 mb-4"
+            onClick={() => {
+              setShowUploadPage(!showUploadPage);
+              setShowBrowsePage(false); // Ensure BrowsePage is hidden when UploadPage is toggled
+            }}
           >
             {showUploadPage ? "Thesis Archive" : "Upload PDF"}
           </button>
           <button
-            className="hover:underline text-white-500 w-full text-center p-2 bg-green-500 rounded"
-            onClick={() => setShowBrowsePage(!showBrowsePage)}
+            className="hover:underline text-white-500"
+            onClick={() => {
+              setShowBrowsePage(!showBrowsePage);
+              setShowUploadPage(false); // Ensure UploadPage is hidden when BrowseTheses is toggled
+            }}
           >
-            {showBrowsePage ? "Thesis Archive" : "Browse Theses"}
+            {showBrowsePage ? "Hide Thesis Archive" : "Browse Theses"}
           </button>
         </aside>
+
         <main className="w-3/4 bg-white rounded-lg p-6 ml-6 shadow flex flex-col">
           {showUploadPage ? (
             <UploadPage />
           ) : showBrowsePage ? (
-            <BrowseTheses /> 
+            <BrowseTheses />  // Ensure BrowseTheses component is rendered
           ) : (
             <>
               <h1 className="text-3xl font-bold mb-4">Thesis Archive</h1>
