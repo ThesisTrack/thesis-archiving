@@ -32,6 +32,8 @@
             redirect("/");
           } else if (role === "admin") {
             redirect("/admin");
+          } else if (role === "librarian"){
+            redirect("/librarian");
           }
 
        
