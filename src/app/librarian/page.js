@@ -41,18 +41,8 @@ export default function Home() {
           </button>
           <Rectangle className="!absolute right-44" />
         </section>
-
         <FilePreview/>
-
-
-        {/* <section className="grid grid-cols-3 gap-8">
-          <div className="bg-[#b6b6b6] h-[341px] rounded-lg"></div>
-          
-          <div className="bg-[#b6b6b6] h-[341px] rounded-lg"></div>
-          <div className="bg-[#b6b6b6] h-[341px] rounded-lg"></div>
-        </section> */}
       </main>
-
       <Footer/>
     </div>
   );

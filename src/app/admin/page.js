@@ -21,6 +21,7 @@ export default function App() {
   const [loading, setLoading] = useState(false);
   const [editedUsers, setEditedUsers] = useState({});
 
+
   useEffect(() => {
     const fetchUsers = async () => {
       setLoading(true);
@@ -34,6 +35,7 @@ export default function App() {
     };
     fetchUsers();
   }, []);
+
 
   const handleRoleChange = async (userId, newRole) => {
     const { error } = await supabase

@@ -9,7 +9,7 @@ const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const FilePreview = () => {
     const [files, setFiles] = useState([]);
-    const bucketName = 'upload'; // Replace with your bucket name
+    const bucketName = 'upload'; 
   
     useEffect(() => {
       const fetchFiles = async () => {

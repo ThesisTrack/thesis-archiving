@@ -37,6 +37,9 @@ export const NavigationBar = () => {
                 <a href="#about" className="hover:underline" aria-label="About Section">
                   About
                 </a>
+                <a href="/" className="hover:underline" aria-label="About Section">
+                  Home
+                </a>
                 <a href="#browse" className="hover:underline" aria-label="Browse Section">
                   Browse
                 </a>

@@ -4,7 +4,7 @@ export default function UploadPdf({
   errorMessage,
   messageSuccess,
   fileList,
-  handleFileDelete, // Add this prop to handle file deletion
+  handleFileDelete, 
 }) {
   return (
     <div className="flex flex-col items-center">

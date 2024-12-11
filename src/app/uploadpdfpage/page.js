@@ -1,16 +1,12 @@
-"use client";
-
 import { useSession } from "next-auth/react";
 import { createClient } from "@supabase/supabase-js";
 import { useState, useEffect, useCallback } from "react";
-import { v4 as uuidv4 } from "uuid";
 import UploadPdf from "@/components/uploadpdf/uploadPdf";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 );
-
 
 export default function UploadPage() {
   const { data: session, status } = useSession();
@@ -37,7 +33,7 @@ export default function UploadPage() {
 
       const { data: filesData, error: filesError } = await supabase.storage
         .from("upload")
-        .list(session.user.email + "/", {
+        .list(`uploads/${session.user.email}`, { // Updated path to include 'uploads'
           limit: 100,
           offset: 0,
           sortBy: { column: "name", order: "asc" },
@@ -51,7 +47,7 @@ export default function UploadPage() {
           filesData.map(async (file) => {
             const { data: fileUrl } = supabase.storage
               .from("upload")
-              .getPublicUrl(session.user.email + "/" + file.name);
+              .getPublicUrl(`uploads/${session.user.email}/${file.name}`); // Updated path to include 'uploads'
             return { name: file.name, url: fileUrl.publicUrl };
           })
         );
@@ -83,7 +79,7 @@ export default function UploadPage() {
       const fileName = `${file.name}`;
       const { data, error } = await supabase.storage
         .from("upload")
-        .upload(`${userId}/${fileName}`, file);
+        .upload(`uploads/${userId}/${fileName}`, file); // Updated path to include 'uploads'
 
       if (data) {
         setMessageSuccess("File uploaded successfully.");
@@ -103,7 +99,7 @@ export default function UploadPage() {
     try {
       const { error } = await supabase.storage
         .from("upload")
-        .remove([userId + "/" + fileName]);
+        .remove([`uploads/${userId}/${fileName}`]); // Updated path to include 'uploads'
 
       if (error) {
         setErrorMessage(`Error deleting file: ${error.message}`);
@@ -201,4 +197,3 @@ export default function UploadPage() {
     </div>
   );
 }
-

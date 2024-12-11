@@ -1,3 +1,5 @@
+"use client";
+
 import { useSession } from "next-auth/react";
 import { createClient } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
@@ -10,8 +12,8 @@ const supabase = createClient(supabaseUrl, supabaseKey, {
   },
 });
 
-export default function AllFilesPage() {
-  const { data: session, status } = useSession();
+export default function BrowseTheses() {
+  const { data: session } = useSession();
   const [fileList, setFileList] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [userInfo, setUserInfo] = useState([]);
@@ -25,7 +27,7 @@ export default function AllFilesPage() {
       const { data, error } = await supabase
         .from("users")
         .select("email") 
-        .limit(10); 
+        .limit(10);
 
       if (error) throw error;
       if (data != null) {
@@ -77,30 +79,10 @@ export default function AllFilesPage() {
         }
       }
 
-      setFileList(filesWithEmail); 
+      setFileList(filesWithEmail);
     } catch (e) {
       console.error(e);
       setErrorMessage("Error retrieving files");
-    }
-  };
-
-  // Handle file deletion
-  const handleFileDelete = async (fileName, email) => {
-    try {
-      const { error } = await supabase.storage
-        .from("upload")
-        .remove([`uploads/${email}/${fileName}`]); 
-
-      if (error) {
-        setErrorMessage(`Error deleting file: ${error.message}`);
-        console.error(error);
-      } else {
-        setErrorMessage("");
-        getAllFiles(); 
-      }
-    } catch (error) {
-      setErrorMessage("An error occurred during the file deletion process.");
-      console.error(error);
     }
   };
 
@@ -110,18 +92,25 @@ export default function AllFilesPage() {
     }
   }, [session, userInfo]);
 
-  if (status === "loading") {
-    return <div>Loading...</div>;
-  }
-
   if (!session) {
     return <div>User not authenticated</div>;
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-blue-300 space-y-8">
-      <div className="w-full max-w-4xl bg-white p-6 rounded-lg shadow-md">
-        <h2 className="text-xl font-bold mb-4">All Uploaded Files</h2>
+    <div className="min-h-screen bg-gray-100">
+      <main className="w-full max-w-7xl mx-auto px-4 py-6 bg-white rounded-lg shadow-md mt-6">
+        <h1 className="text-3xl font-bold mb-4">Browse Theses</h1>
+        <nav className="text-sm text-gray-600 mb-6">
+          <a href="#" className="hover:underline">
+            Browse
+          </a>{" "}
+          /{" "}
+          <a href="#" className="hover:underline">
+            College of Informatics and Computing Studies
+          </a>{" "}
+          / Thesis Archive
+        </nav>
+
         <table className="table-auto w-full border-collapse border border-gray-300 text-center">
           <thead>
             <tr className="bg-gray-200">
@@ -147,31 +136,18 @@ export default function AllFilesPage() {
                     {file.email}
                   </td>
                   <td className="border border-gray-300 px-4 py-2">
-                    <div className="flex justify-center space-x-4">
-                      <a
-                        href={file.url}
-                        download={file.name}
-                        className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                      >
-                        Download
-                      </a>
-                      <button
-                        onClick={() => handleFileDelete(file.name, file.email)}
-                        className="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600"
-                      >
-                        Delete
-                      </button>
-                    </div>
+                    No actions available
                   </td>
                 </tr>
               ))
             )}
           </tbody>
         </table>
+
         {errorMessage && (
           <div className="mt-4 text-red-500">{errorMessage}</div>
         )}
-      </div>
+      </main>
     </div>
   );
 }
