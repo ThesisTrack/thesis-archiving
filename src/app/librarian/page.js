@@ -5,7 +5,6 @@ import { FileCount } from "@/components/Common/pdfcount";
 import React from "react";
 import { Footer } from "@/components/Common/Footer";
 import { NavigationBar } from "@/components/Common/NavigationBar";
-import { Rectangle } from "@/components/ui/rectangle";
 import { useRouter } from "next/navigation";
 import { FilePreview } from "@/components/Common/pdfpreview";
 
@@ -39,7 +38,6 @@ export default function Home() {
             <img src="/heartedit.svg" alt="Heart edit" className="w-6 h-6 mr-2" />
             <span className="text-black text-xl">Review Submissions</span>
           </button>
-          <Rectangle className="!absolute right-44" />
         </section>
 
         <FilePreview/>
