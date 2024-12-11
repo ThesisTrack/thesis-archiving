@@ -32,7 +32,7 @@ export default function App() {
           </button>
           <button
             className="border-t border-b border-slate-500 shadow-md mt-6 p-2 text-blue w-full hover:bg-slate-300"
-            onClick={() => router.push('/sameplebrowsepage')}
+            onClick={() => router.push('/browsetheses')}
           >Browse Theses
           </button>
         </aside>
