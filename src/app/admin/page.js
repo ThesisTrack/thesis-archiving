@@ -70,13 +70,13 @@ export default function App() {
       <div className="container mx-auto flex mt-6 px-4">
         <aside className="w-1/4 bg-gray-200 rounded-lg p-4">
           <button
-            className="hover:underline text-white-500 mb-4"
+            className="border-t border-b border-slate-500 shadow-md mt-6 p-2 text-blue w-full hover:bg-slate-300"
             onClick={() => setShowUploadPage(!showUploadPage)}
           >
             {showUploadPage ? "Thesis Archive" : "Upload PDF"}
           </button>
           <button
-            className="hover:underline text-white-500"
+            className="border-t border-b border-slate-500 shadow-md mt-6 p-2 text-blue w-full hover:bg-slate-300"
             onClick={() => setShowAdmin(!showAdmin)}
           >
             {showAdmin ? "Hide Admin" : "Admin"}
