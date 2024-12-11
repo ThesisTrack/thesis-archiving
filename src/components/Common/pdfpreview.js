@@ -32,7 +32,7 @@ export const FilePreview = () => {
             name: file.name,
             url: publicUrlData.publicUrl,
           };
-        }).filter(Boolean); // Filter out any null values in case of errors
+        }).filter(Boolean); 
   console.log(previews);
         setFiles(previews);
       };

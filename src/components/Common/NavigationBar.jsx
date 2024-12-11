@@ -1,35 +1,11 @@
 'use client';
 
-import supabase from '@/app/utils/supabase/client';
 import { signOut, useSession } from 'next-auth/react';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+
 
 export const NavigationBar = () => {
   const { data: session, status } = useSession(); 
-  const [ userInfo, setUserInfo ] = useState([]);
-
-  useEffect(() => {
-    getName();
-  }, [])
-
-  async function getName() {
-    try {
-      const { data, error } = await supabase
-      .schema("next_auth")
-      .from("users")
-      .select("*")
-      .limit(10)
-      if(error) throw error;
-      if(data != null) {
-        setUserInfo(data);
-      } 
-    } catch (error) {
-      console.log(error);
-    }
-  }
-  
-  console.log(userInfo);
 
   if (status === 'loading') {
     return <p className="text-gray-500">Loading...</p>;

@@ -6,11 +6,11 @@ import { Footer } from "@/components/Common/Footer";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { useState } from "react";
-import UploadPage from "./uploadpdfpage/page"; // Import the UploadPage component
+import UploadPage from "./uploadpdfpage/page";
 
 export default function App() {
   const { data: session } = useSession();
-  const [showUploadPage, setShowUploadPage] = useState(false); // State to toggle the UploadPage
+  const [showUploadPage, setShowUploadPage] = useState(false); 
 
   if (!session) {
     redirect("/login");
@@ -22,7 +22,6 @@ export default function App() {
 
       <div className="container mx-auto flex mt-6 px-4">
         <aside className="w-1/4 bg-gray-200 rounded-lg p-4">
-          {/* Toggle the UploadPage on button click */}
           <button
             className="hover:underline text-white-500"
             onClick={() => setShowUploadPage(!showUploadPage)}
@@ -32,9 +31,8 @@ export default function App() {
         </aside>
 
         <main className="w-3/4 bg-white rounded-lg p-6 ml-6 shadow">
-          {/* Conditionally render UploadPage or Main Content */}
           {showUploadPage ? (
-            <UploadPage /> // Render UploadPage here
+            <UploadPage /> 
           ) : (
             <>
               <h1 className="text-3xl font-bold mb-4">Thesis Archive</h1>

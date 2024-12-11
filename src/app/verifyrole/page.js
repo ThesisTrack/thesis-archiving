@@ -7,7 +7,7 @@
     const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_SERVICE_ROLE_KEY;
     const supabase = createClient(supabaseUrl, supabaseKey, {
         db: {
-          schema: 'next_auth', // Explicitly set your schema
+          schema: 'next_auth', 
         },
       });
 
@@ -19,10 +19,10 @@
         console.log(match);
 
         const data = await supabase
-        .from('users') // Your table name in the schema
-        .select('role')   // Select all columns (use specific columns for performance)
-        .eq('email', match) // Match email
-        .single();     // Limit to the first result
+        .from('users') 
+        .select('role')   
+        .eq('email', match)
+        .single();     
         console.log(data);
 
         const role = data.data.role;
