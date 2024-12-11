@@ -26,6 +26,7 @@ export const FileCount = () => {
           return;
         }
 
+        
         let totalFiles = 0;
 
         // Iterate through folders and count files
@@ -36,10 +37,13 @@ export const FileCount = () => {
               .from(bucketName)
               .list(folder.name, { limit: 100 });
 
+
             if (folderError) {
               console.error(`Error fetching files for folder ${folder.name}:`, folderError);
               continue;
             }
+
+
 
             totalFiles += folderFiles.length;
           }
