@@ -1,5 +1,5 @@
 {
-    "buildCommand": "npm build",
+    "buildCommand": "npm run build",
     "regions": ["sin1"],
     "version": 2
 }
