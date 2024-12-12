@@ -22,7 +22,7 @@ export default function UploadPage() {
     setFile(e.target.files[0]);
   };
 
-  const getUserAndFiles = useCallback(async () => {
+  const getUserAndFiles = (async () => {
     if (!session || !session.user) {
       console.error("No session or user available:", session);
       setErrorMessage("User not authenticated");
