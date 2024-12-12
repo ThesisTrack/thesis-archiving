@@ -1,8 +1,7 @@
-"use client"
-
+'use client'
 import { useSession } from "next-auth/react";
 import { createClient } from "@supabase/supabase-js";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import UploadPdf from "@/components/uploadpdf/uploadPdf";
 
 const supabase = createClient(
