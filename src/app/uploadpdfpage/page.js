@@ -1,4 +1,5 @@
-'use client'
+"use client";
+
 import { useSession } from "next-auth/react";
 import { createClient } from "@supabase/supabase-js";
 import { useState, useEffect } from "react";
